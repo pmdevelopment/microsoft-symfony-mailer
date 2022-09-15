@@ -15,8 +15,7 @@
         "guzzlehttp/guzzle": "^6.0|^7.0",
         "microsoft/microsoft-graph": "^1.66",
         "symfony/event-dispatcher-contracts": "*",
-        "symfony/mailer": "^4.4.21|^5.2.6|^6.0",
-        "symfony/symfony": "^4.4|^5.4|^6.0"
+        "symfony/mailer": "^4.4.21|^5.2.6|^6.0"
     },
     "require-dev": {
         "symfony/http-client": "^4.4|^5.0|^6.0"
