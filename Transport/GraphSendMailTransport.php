@@ -2,7 +2,6 @@
 
 namespace PMDevelopment\Mailer\Bridge\Microsoft\Transport;
 
-use GuzzleHttp\Client;
 use Microsoft\Graph\Graph;
 use Psr\Log\LoggerInterface;
 use RuntimeException;
@@ -20,12 +19,8 @@ use Throwable;
 
 class GraphSendMailTransport extends AbstractTransport
 {
-    private GraphClient $client;
-
-    public function __construct(GraphClient $client, EventDispatcherInterface $dispatcher = null, LoggerInterface $logger = null)
+    public function __construct(private readonly GraphClient $client, EventDispatcherInterface $dispatcher = null, LoggerInterface $logger = null)
     {
-        $this->client = $client;
-
         parent::__construct($dispatcher, $logger);
     }
 
