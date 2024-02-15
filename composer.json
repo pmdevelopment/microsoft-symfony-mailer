@@ -11,9 +11,9 @@
         }
     ],
     "require": {
-        "php": "^7.4|^8.1",
+        "php": "^8.2",
         "guzzlehttp/guzzle": "^6.0|^7.0",
-        "microsoft/microsoft-graph": "^2.2.0",
+        "microsoft/microsoft-graph": "^1.110.0",
         "symfony/event-dispatcher-contracts": "*",
         "symfony/mailer": "^6.0|^7.0"
     },
