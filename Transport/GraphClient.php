@@ -2,13 +2,13 @@
 
 namespace PMDevelopment\Mailer\Bridge\Microsoft\Transport;
 
-use GuzzleHttp\Client;
-use Microsoft\Graph\Graph;
+use Microsoft\Graph\GraphServiceClient;
+use Microsoft\Kiota\Authentication\Oauth\ClientCredentialContext;
 use Symfony\Component\Mailer\Transport\Dsn;
 
 class GraphClient
 {
-    private ?Graph $graph = null;
+    private ?GraphServiceClient $graph = null;
 
     private string $clientId;
     private string $clientSecret;
@@ -21,10 +21,16 @@ class GraphClient
         $this->tenantId = $dsn->getHost();
     }
 
-    public function getGraph(): Graph
+    public function getGraph(): GraphServiceClient
     {
         if (null === $this->graph) {
-            $this->login();
+            $tokenRequestContext = new ClientCredentialContext(
+                $this->tenantId,
+                $this->clientId,
+                $this->clientSecret,
+            );
+
+            $this->graph = new GraphServiceClient($tokenRequestContext);
         }
 
         return $this->graph;
@@ -44,31 +50,4 @@ class GraphClient
     {
         return $this->tenantId;
     }
-
-    private function login()
-    {
-        $client = new Client();
-
-        $loginUrl = sprintf('https://login.microsoftonline.com/%s/oauth2/v2.0/token', $this->tenantId);
-
-        $loginFormParameters = [
-            'client_id'     => $this->clientId,
-            'client_secret' => $this->clientSecret,
-            'grant_type'    => 'client_credentials',
-            'scope'         => 'https://graph.microsoft.com/.default',
-        ];
-
-        $request = $client->post($loginUrl, [
-            'form_params' => $loginFormParameters,
-        ]);
-
-        $response = json_decode($request->getBody()->getContents(), true);
-        if (false === array_key_exists('access_token', $response)) {
-            throw new RuntimeException('Key "access_token" not found in %s', implode(',', array_keys($response)));
-        }
-
-        $this->graph = new Graph();
-        $this->graph->setAccessToken($response['access_token']);
-    }
-
 }
