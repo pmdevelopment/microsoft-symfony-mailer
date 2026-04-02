@@ -16,7 +16,7 @@ Use this bridge to send Emails with `symfony/mailer` and Microsoft Graph API. Su
 | Bcc         | ✓         |
 | Priority    | ✕         |
 | Text        | ✓         |
-| HTML        | ✕         |
+| HTML        | ✓         |
 | Attachments | ✓         |
 
 

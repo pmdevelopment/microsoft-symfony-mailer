@@ -54,11 +54,7 @@ class GraphSendMailTransport extends AbstractTransport
 
         $graphMessage->setFrom($fromRecipient);
 
-        $recipientMapping = [
-            'getTo' => 'setToRecipients',
-            'getCc' => 'setCcRecipients',
-            'getBcc' => 'setBccRecipients',
-        ];
+        $recipientMapping = ['getTo' => 'setToRecipients', 'getCc' => 'setCcRecipients', 'getBcc' => 'setBccRecipients',];
 
         foreach ($recipientMapping as $recipientGetter => $recipientSetter) {
             $recipients = [];
@@ -95,8 +91,14 @@ class GraphSendMailTransport extends AbstractTransport
         }
 
         $emailBody = new ItemBody();
-        $emailBody->setContent($email->getTextBody());
-        $emailBody->setContentType(new BodyType(BodyType::TEXT));
+
+        if (true === empty($email->getHtmlBody())) {
+            $emailBody->setContent($email->getTextBody());
+            $emailBody->setContentType(new BodyType(BodyType::TEXT));
+        } else {
+            $emailBody->setContent($email->getHtmlBody());
+            $emailBody->setContentType(new BodyType(BodyType::HTML));
+        }
 
         $graphMessage->setSubject($email->getSubject());
         $graphMessage->setBody($emailBody);
