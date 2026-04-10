@@ -2,23 +2,20 @@
     "name": "pmdevelopment/microsoft-symfony-mailer",
     "description": "Microsoft Graph API bridge for symfony mailer",
     "keywords": [],
-    "homepage": "https://pmdevelopment.de",
+    "homepage": "https://www.cpy-pst.de",
     "license": "MIT",
     "authors": [
         {
             "name": "Sven Joder",
-            "email": "sj@pmdevelopment.de"
+            "email": "sven@cpy-pst.de"
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.4",
         "guzzlehttp/guzzle": "^7.0",
         "microsoft/microsoft-graph": "^2.37.0",
         "symfony/event-dispatcher-contracts": "*",
-        "symfony/mailer": "^7.0"
-    },
-    "require-dev": {
-        "symfony/http-client": "^7.0"
+        "symfony/mailer": "^7.0|^8.0"
     },
     "autoload": {
         "psr-4": {
